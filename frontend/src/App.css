@@ -4,14 +4,14 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #24292e; /* matches monaco bg */
+  background-color: #24292e;  /* matches monaco bg */
   color: white;
   font-family: 'Arvo', serif;
 }
 
 .app-container {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 50px); /* account for topbar height */
   width: 100vw;
   overflow: hidden;
 }
@@ -19,7 +19,7 @@ html, body, #root {
 .editor-panel {
   width: 50vw;
   border-right: 1px solid #444;
-  height: 100vh;
+  height: 100%;
 }
 
 .right-panel {
@@ -27,11 +27,12 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #24292e; /* match monaco bg */
+  background-color: #24292e;  /* match monaco bg */
   box-sizing: border-box;
-  height: 100vh;
+  height: 100%;
   color: #ddd;
   font-family: 'Arvo', serif;
+  overflow-y: auto;
 }
 
 .top-controls {
@@ -69,78 +70,56 @@ html, body, #root {
   cursor: not-allowed;
 }
 
-.stdin-container,
-.output-container,
-.stderr-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-  width: 100%;
+.top-controls button:hover:not(:disabled) {
+  background-color: #1177cc;
 }
 
-.stdin-container label,
-.output-container label,
-.stderr-container label {
-  font-weight: bold;
+.stdin-container, .output-container, .stderr-container {
+  margin-bottom: 15px;
+}
+
+.stdin-container label, .output-container label, .stderr-container label {
+  display: block;
   margin-bottom: 6px;
+  font-weight: bold;
   font-family: 'Arvo', serif;
+  color: #ccc;
 }
 
 .stdin-textarea {
   width: 100%;
-  height: 6rem;
-  resize: none;
+  height: 80px;
   background-color: #1e1e1e;
   border: 1px solid #444;
   border-radius: 4px;
   color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  padding: 6px 8px;
+  resize: vertical;
+}
+
+.output, .stderr {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 4px;
+  min-height: 80px;
   padding: 10px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
-  overflow: auto;
-  box-sizing: border-box;
-}
-
-.output {
-  background-color: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  padding: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  overflow: auto;
   white-space: pre-wrap;
-  word-break: break-word;
-  color: #c9d1d9;
-  box-shadow: inset 0 0 5px #21262d;
-  max-height: 35vh;   /* increased from 30vh */
-  min-height: 10vh;   /* added */
-  margin-bottom: 10px;
+  overflow-wrap: break-word;
+  color: white;
+  margin: 0;
 }
 
 .stderr {
-  background-color: #490000;
-  border: 1px solid #b31d1d;
-  border-radius: 6px;
-  padding: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  overflow: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
-  color: #f85149;
-  box-shadow: inset 0 0 8px #8b0000;
-  max-height: 25vh;   /* increased from 20vh */
-  min-height: 8vh;    /* added */
-  margin-bottom: 10px;
+  color: #ff5555;
 }
 
-
 .exec-time {
-  font-size: 13px;
-  color: #888;
-  margin-top: auto;
-  text-align: right;
+  font-size: 14px;
+  color: #bbb;
   font-family: 'Arvo', serif;
 }
 
