@@ -1,6 +1,9 @@
+// src/App.tsx
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
-import "./App.css"; // ✅ Make sure this line is present to load styling
+import * as monaco from "monaco-editor";
+import { githubDarkTheme } from "./monacoTheme";
+import "./App.css";
 
 function App() {
   const [language, setLanguage] = useState("cpp");
@@ -19,6 +22,15 @@ int main() {
   const [execTime, setExecTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
+  const handleEditorMount = (editor, monacoInstance) => {
+    monacoInstance.editor.defineTheme("github-dark", githubDarkTheme);
+    monacoInstance.editor.setTheme("github-dark");
+
+    document.fonts.ready.then(() => {
+      editor.remeasureFonts();
+    });
+  };
+
   async function runCode() {
     setIsRunning(true);
     setStdout("");
@@ -36,7 +48,7 @@ int main() {
       setStdout(data.stdout || "");
       setStderr(data.stderr || data.error || "");
       setExecTime(data.exec_time_ms || 0);
-    } catch (e: any) {
+    } catch (e) {
       setStderr("Failed to run code: " + e.message);
     } finally {
       setIsRunning(false);
@@ -48,17 +60,25 @@ int main() {
       <div className="editor-panel">
         <Editor
           height="100%"
-          defaultLanguage={language === "python38" ? "python" : "cpp"}
+          defaultLanguage={language}
           language={language === "python38" ? "python" : "cpp"}
           value={code}
           onChange={(value) => setCode(value || "")}
-          theme="vs-dark"
+          onMount={handleEditorMount}
+          theme="github-dark"
           options={{
-            fontFamily: "'JetBrains Mono', monospace",
             fontSize: 14,
-            lineHeight: 22,
-            minimap: { enabled: false },
+            fontFamily: "'JetBrains Mono', monospace",
             fontLigatures: false,
+            minimap: { enabled: false },
+            scrollbar: {
+              vertical: "hidden",
+              horizontal: "hidden",
+              handleMouseWheel: true,
+            },
+            overviewRulerLanes: 0,
+            lineDecorationsWidth: 0,
+            lineNumbersMinChars: 3,
           }}
         />
       </div>
@@ -66,7 +86,6 @@ int main() {
       <div className="right-panel">
         <div className="top-controls">
           <select
-            className="language-select"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
             disabled={isRunning}
@@ -97,8 +116,9 @@ int main() {
         <div className="stderr-container">
           <label>STDERR</label>
           <pre className="stderr">{stderr}</pre>
-          <div className="exec-time">Execution time: {execTime} ms</div>
         </div>
+
+        <div className="exec-time">Execution time: {execTime} ms</div>
       </div>
     </div>
   );

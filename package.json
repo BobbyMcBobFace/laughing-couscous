@@ -1,0 +1,29 @@
+{
+  "name": "cp-tester-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lsp-proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BobbyMcBobFace/laughing-couscous.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BobbyMcBobFace/laughing-couscous/issues"
+  },
+  "homepage": "https://github.com/BobbyMcBobFace/laughing-couscous#readme",
+  "dependencies": {
+    "@codingame/monaco-vscode-api": "^17.1.2",
+    "vscode-jsonrpc": "^8.2.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-protocol": "^3.17.5",
+    "vscode-ws-jsonrpc": "^3.4.0",
+    "ws": "^8.18.2"
+  }
+}

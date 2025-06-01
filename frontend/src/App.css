@@ -4,7 +4,7 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #1e1e1e;
+  background-color: #24292e; /* matches monaco bg */
   color: white;
   font-family: 'Arvo', serif;
 }
@@ -27,7 +27,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #252526;
+  background-color: #24292e; /* match monaco bg */
   box-sizing: border-box;
   height: 100vh;
   color: #ddd;
@@ -72,11 +72,10 @@ html, body, #root {
 .stdin-container,
 .output-container,
 .stderr-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
-  min-height: 0; /* prevent collapsing flex children */
+  width: 100%;
 }
 
 .stdin-container label,
@@ -88,7 +87,9 @@ html, body, #root {
 }
 
 .stdin-textarea {
-  flex: 1;
+  width: 100%;
+  height: 6rem;
+  resize: none;
   background-color: #1e1e1e;
   border: 1px solid #444;
   border-radius: 4px;
@@ -96,23 +97,44 @@ html, body, #root {
   padding: 10px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
-  resize: vertical;
   overflow: auto;
+  box-sizing: border-box;
 }
 
-.output,
-.stderr {
-  flex: 1;
-  background-color: #1e1e1e;
-  border: 1px solid #444;
-  border-radius: 4px;
-  padding: 10px;
+.output {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 12px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
+  color: #c9d1d9;
+  box-shadow: inset 0 0 5px #21262d;
+  max-height: 35vh;   /* increased from 30vh */
+  min-height: 10vh;   /* added */
+  margin-bottom: 10px;
 }
+
+.stderr {
+  background-color: #490000;
+  border: 1px solid #b31d1d;
+  border-radius: 6px;
+  padding: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #f85149;
+  box-shadow: inset 0 0 8px #8b0000;
+  max-height: 25vh;   /* increased from 20vh */
+  min-height: 8vh;    /* added */
+  margin-bottom: 10px;
+}
+
 
 .exec-time {
   font-size: 13px;
